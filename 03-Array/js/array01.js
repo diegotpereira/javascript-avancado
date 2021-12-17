@@ -20,7 +20,7 @@ let arr2 = arr1.map(function(elemento, i, _arr) {
     return elemento * elemento
 })
 
-// console.log(arr);
-// console.log(sohNumeros);
-// console.log(arr1);
+console.log(arr);
+console.log(sohNumeros);
+console.log(arr1);
 console.log(arr2);
