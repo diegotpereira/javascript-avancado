@@ -80,11 +80,11 @@
 
     function gerarLiTarefa(obj) {
 
-        const li = document.createElement("li")
-        const p = document.createElement("p")
-        const checkButton = document.createElement("button")
-        const editButton = document.createElement("i")
-        const deleteButton = document.createElement("i")
+        const li = document.createElement('li')
+        const p = document.createElement('p')
+        const checkButton = document.createElement('button')
+        const editButton = document.createElement('i')
+        const deleteButton = document.createElement('i')
 
         li.className = 'tarefa-item'
 
