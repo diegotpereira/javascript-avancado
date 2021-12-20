@@ -12,6 +12,8 @@
 
         let _nome = nome
         this.completada = completada || false
+        this.criadaEm = criadaEm || Date.now()
+        this.atualizaEm = atualizaEm || null
 
         this.toggleDone = function() {
             this.completada = !this.completada;
@@ -21,7 +23,8 @@
         this.setNome = function(novoNome) {
 
             _nome = novoNome
-    
+            this.atualizaEm = Date.now()
+
         }
     }
 
@@ -73,7 +76,7 @@
         li.className = 'tarefa-item'
 
         checkButton.className = 'button-check'
-        
+
 
         // Botão CheckBox 
         checkButton.innerHTML = `
@@ -91,23 +94,22 @@
         editButton.className = 'fas fa-edit'
         editButton.setAttribute('data-action', 'editButton')
         li.appendChild(editButton)
-        
+
 
         const containerEdit = document.createElement('div')
         containerEdit.className = 'editContainer'
 
-        const entradaEDitar = document.createElement('input')
-        entradaEDitar.setAttribute('type', 'text')
-        entradaEDitar.className = 'editInput'
-        entradaEDitar.value = obj.getNome()
+        const entradaEditar = document.createElement('input')
+        entradaEditar.setAttribute('type', 'text')
+        entradaEditar.className = 'editInput'
+        entradaEditar.value = obj.getNome()
 
-        containerEdit.appendChild(entradaEDitar)
+        containerEdit.appendChild(entradaEditar)
 
         const containerEditButton = document.createElement('button')
         containerEditButton.className = 'editButton'
         containerEditButton.textContent = 'Editar'
-        containerEditButton.setAttribute('data-action', 
-        'containerEditButton')
+        containerEditButton.setAttribute('data-action', 'containerEditButton')
         containerEdit.appendChild(containerEditButton)
 
         li.appendChild(containerEdit)
@@ -135,7 +137,7 @@
     tarefaAddForm.addEventListener('submit', function(e) {
         e.preventDefault()
 
-        adicionarTarefa(itemInput.value)    
+        adicionarTarefa(itemInput.value)
         renderizarTarefa()
 
         itemInput.value = ''
@@ -151,18 +153,18 @@
         renderizarTarefa()
 
     }
-    
+
 
     function clicarInterface(e) {
 
         const dataAction = e.target.getAttribute('data-action')
-        
-        if(!dataAction) return 
+
+        if (!dataAction) return
 
         let atualLi = e.target
 
-        while (atualLi.nodeName != 'LI') {
-            
+        while (atualLi.nodeName !== 'LI') {
+
             atualLi = atualLi.parentElement
         }
 
@@ -170,7 +172,7 @@
 
         const acao = {
 
-            editButton: function () {
+            editButton: function() {
 
                 const editContainer = atualLi.querySelector('.editContainer');
 
@@ -178,13 +180,20 @@
                     container.removeAttribute("style")
                 });
 
-                editContainer.style.display = 'flex';   
+                editContainer.style.display = 'flex';
             },
 
-            containerEditButton: function () {
+            containerEditButton: function() {
 
                 const valor = atualLi.querySelector('.editInput').value
-                arrInstanciaTarefas[atualLiIndice].nome = valor
+                arrInstanciaTarefas[atualLiIndice].setNome(valor)
+
+                renderizarTarefa()
+            },
+
+            checkButton: function() {
+
+                arrInstanciaTarefas[atualLiIndice].toggleDone()
 
                 renderizarTarefa()
             }
