@@ -128,7 +128,7 @@ input[type="submit"]:hover {
     display: none;
 }
 
-.task-name {
+.tarefa-nome {
     grid-column: 2/3;
     background-color: #f2f2f2;
     padding: 1rem;

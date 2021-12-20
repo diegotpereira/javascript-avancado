@@ -5,16 +5,6 @@
 
     function Tarefa(nome, completada, criadaEm, atualizaEm) {
 
-        // crie uma funcao construtora chamada Task. 
-        // essa funcao recebe por parametro obrigatório o nome da tarefa
-        // também recebe tres parametros opcionais (completed, createdAt, updatedAt)
-        // o objeto retornado por essa funcao deve ter quatro propriedades:
-        //  - name - string - obrigatório, 
-        //  - completed - boolean - opcional, false é o default, 
-        //  - createdAt - timestamp - opcional, timestamp atual é o valor default)  Date.now()
-        //  - updatedAt - timestamp - opcional, null é o valor default
-        // o objeto retornado por essa funcao deve ter um método chamado toggleDone, que deve inverter o boolean completed
-
         if (!nome) {
 
             throw new Error('A tarefa precisa de um parâmetro obrigatório: nome')
@@ -22,22 +12,16 @@
 
         let _nome = nome
         this.completada = completada || false
-        this.criadaEm = criadaEm || Date.now()
-        this.atualizaEm = atualizaEm || null
 
         this.toggleDone = function() {
-
-            this.completada = !this.completada
+            this.completada = !this.completada;
         }
 
         this.getNome = () => _nome
         this.setNome = function(novoNome) {
 
             _nome = novoNome
-            this.atualizaEm = Date.now()
-
-            console.log('------------');
-            console.log(this);
+    
         }
     }
 
@@ -63,8 +47,8 @@
         }
     ]
 
-    // a partir de um array de objetos literais, crie um array contendo instancias de Tasks. 
-    // Essa array deve chamar arrInstancesTasks
+    // a partir de um array de objetos literais, crie um array contendo instancias de Tarefas. 
+    // Essa array deve chamar arrInstancesTarefas
     const arrInstanciaTarefas = arrTarefas.map(tarefa => {
 
         const { nome, completada, criadaEm, atualizaEm } = tarefa
@@ -73,10 +57,10 @@
     })
 
     // ARMAZENAR O DOM EM VARIAVEIS
-    const itemInput = document.getElementById('item-input')
-    const tarefaAddForm = document.getElementById('tarefa-add')
     const ul = document.getElementById('tarefa-lista')
     const lis = document.getElementsByTagName('li')
+    const tarefaAddForm = document.getElementById('tarefa-add')
+    const itemInput = document.getElementById('item-input')
 
     function gerarLiTarefa(obj) {
 
@@ -89,26 +73,56 @@
         li.className = 'tarefa-item'
 
         checkButton.className = 'button-check'
+        
+
+        // Botão CheckBox 
         checkButton.innerHTML = `
-           <i class="fas fa-check ${obj.completada ? '' : 'displayNone'} data-action="checkButton"><i>`
+            <i class='fas fa-check ${obj.completada ? ' ' : 'displayNone'}' data-action='checkButton'></i>`
         checkButton.setAttribute('data-action', 'checkButton')
 
         li.appendChild(checkButton)
 
         p.className = 'tarefa-nome'
         p.textContent = obj.getNome()
+
         li.appendChild(p)
 
+        // Botão Editar
         editButton.className = 'fas fa-edit'
         editButton.setAttribute('data-action', 'editButton')
         li.appendChild(editButton)
+        
 
         const containerEdit = document.createElement('div')
+        containerEdit.className = 'editContainer'
+
+        const entradaEDitar = document.createElement('input')
+        entradaEDitar.setAttribute('type', 'text')
+        entradaEDitar.className = 'editInput'
+        entradaEDitar.value = obj.getNome()
+
+        containerEdit.appendChild(entradaEDitar)
+
+        const containerEditButton = document.createElement('button')
+        containerEditButton.className = 'editButton'
+        containerEditButton.textContent = 'Editar'
+        containerEditButton.setAttribute('data-action', 
+        'containerEditButton')
+        containerEdit.appendChild(containerEditButton)
+
+        li.appendChild(containerEdit)
+
+        // Botão Cancelar
+        deleteButton.className = 'fas fa-trash-alt'
+        deleteButton.setAttribute('data-action', 'deleteButton')
+        li.appendChild(deleteButton)
 
         return li
     }
 
-    function renderTarefa() {
+
+    // Renderizar tarefa
+    function renderizarTarefa() {
 
         ul.innerHTML = ''
         arrInstanciaTarefas.forEach(tarefaObj => {
@@ -117,25 +131,71 @@
         })
     }
 
-    function addTarefa(tarefaNome) {
-
-        // adicione uma nova instancia de tarefa
-        arrInstanciaTarefas.push(new Tarefa(tarefaNome))
-
-        renderTarefa()
-    }
-
+    // Evento enviar tarefa
     tarefaAddForm.addEventListener('submit', function(e) {
         e.preventDefault()
-        console.log(itemInput.value);
-        addTarefa(itemInput.value)
-        renderTarefa()
+
+        adicionarTarefa(itemInput.value)    
+        renderizarTarefa()
 
         itemInput.value = ''
         itemInput.focus()
     })
 
-    // ul.addEventListener('click', clickedUl)
+    // Função adicionar tarefa
+    function adicionarTarefa(tarefaNome) {
 
-    renderTarefa()
+        // adicione uma nova instancia de tarefa
+        arrInstanciaTarefas.push(new Tarefa(tarefaNome))
+
+        renderizarTarefa()
+
+    }
+    
+
+    function clicarInterface(e) {
+
+        const dataAction = e.target.getAttribute('data-action')
+        
+        if(!dataAction) return 
+
+        let atualLi = e.target
+
+        while (atualLi.nodeName != 'LI') {
+            
+            atualLi = atualLi.parentElement
+        }
+
+        const atualLiIndice = [...lis].indexOf(atualLi)
+
+        const acao = {
+
+            editButton: function () {
+
+                const editContainer = atualLi.querySelector('.editContainer');
+
+                [...ul.querySelectorAll(".editContainer")].forEach(container => {
+                    container.removeAttribute("style")
+                });
+
+                editContainer.style.display = 'flex';   
+            },
+
+            containerEditButton: function () {
+
+                const valor = atualLi.querySelector('.editInput').value
+                arrInstanciaTarefas[atualLiIndice].nome = valor
+
+                renderizarTarefa()
+            }
+        }
+
+        if (acao[dataAction]) {
+            acao[dataAction]()
+        }
+    }
+
+    ul.addEventListener('click', clicarInterface)
+
+    renderizarTarefa()
 })()
