@@ -115,6 +115,13 @@
         li.appendChild(containerEdit)
 
         // Botão Cancelar
+
+        const containerCancelButton = document.createElement('button')
+        containerCancelButton.className = 'cancelButton'
+        containerCancelButton.textContent = 'Cancelar'
+        containerCancelButton.setAttribute('data-action', 'containerCancelButton')
+        containerEdit.appendChild(containerCancelButton)
+
         deleteButton.className = 'fas fa-trash-alt'
         deleteButton.setAttribute('data-action', 'deleteButton')
         li.appendChild(deleteButton)
@@ -183,12 +190,24 @@
                 editContainer.style.display = 'flex';
             },
 
+            deleteButton: function() {
+
+                arrInstanciaTarefas.splice(atualLiIndice, 1)
+
+                renderizarTarefa()
+            },
+
             containerEditButton: function() {
 
                 const valor = atualLi.querySelector('.editInput').value
                 arrInstanciaTarefas[atualLiIndice].setNome(valor)
 
                 renderizarTarefa()
+            },
+
+            containerCancelButton: function() {
+                atualLi.querySelector('.editContainer').removeAttribute('style')
+                atualLi.querySelector('.editInput').value = arrInstanciaTarefas[atualLiIndice].getNome()
             },
 
             checkButton: function() {
