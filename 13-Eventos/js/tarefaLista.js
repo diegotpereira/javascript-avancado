@@ -144,7 +144,13 @@
             },
             containerCancelarBtn: function() {
                 atualLi.querySelector('.editarContainer').removeAttribute('style')
-                atualLi.querySelector('.editarEntrada').value = arrTarefas[atualLiIndex].completada
+                atualLi.querySelector('.editarEntrada').value = arrTarefas[atualLiIndex].nome
+
+
+            },
+            verificarBotao: function() {
+
+                arrTarefas[atualLiIndex].completada = !arrTarefas[atualLiIndex].completada
 
                 definirNovosDados()
                 renderizarTarefa()
