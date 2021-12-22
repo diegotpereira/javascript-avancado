@@ -76,7 +76,18 @@
         containerEditarBtn.setAttribute('data-action', 'containerEditarBtn')
         containerEditar.appendChild(containerEditarBtn)
 
+        // Botão de excluir
+        const containerCancelarBtn = document.createElement('button')
+        containerCancelarBtn.className = 'cancelarBotao'
+        containerCancelarBtn.textContent = 'Cancelar'
+        containerCancelarBtn.setAttribute('data-action', 'containerCancelarBtn')
+        containerEditar.appendChild(containerCancelarBtn)
+
         li.appendChild(containerEditar)
+
+        deletarBotao.className = 'fas fa-trash-alt'
+        deletarBotao.setAttribute('data-action', 'deletarBotao')
+        li.appendChild(deletarBotao)
 
 
         return li
@@ -120,11 +131,23 @@
 
                 editarContainer.style.display = 'flex'
             },
+            deletarBotao: function() {
+                arrTarefas.splice(atualLiIndex, 1)
+                renderizarTarefa()
+                definirNovosDados()
+            },
             containerEditarBtn: function() {
                 const valor = atualLi.querySelector('.editarEntrada').value
                 arrTarefas[atualLiIndex].nome = valor
                 renderizarTarefa()
                 definirNovosDados()
+            },
+            containerCancelarBtn: function() {
+                atualLi.querySelector('.editarContainer').removeAttribute('style')
+                atualLi.querySelector('.editarEntrada').value = arrTarefas[atualLiIndex].completada
+
+                definirNovosDados()
+                renderizarTarefa()
             }
         }
 

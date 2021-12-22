@@ -171,7 +171,7 @@ input[type="submit"]:hover {
 }
 
 .editarContainer .editarBotao,
-.editarContainer .cancelButton {
+.editarContainer .cancelarBotao {
     border: none;
     outline: transparent;
     padding: .7rem 2rem;
@@ -182,7 +182,7 @@ input[type="submit"]:hover {
     color: seashell;
 }
 
-.editarContainer .cancelButton {
+.editarContainer .cancelarBotao {
     background-color: #8a3d3d;
     color: seashell;
 }
@@ -192,7 +192,7 @@ input[type="submit"]:hover {
     color: seashell;
 }
 
-.editarContainer .cancelButton:hover {
+.editarContainer .cancelarBotao:hover {
     background-color: #6f3131;
     color: seashell;
 }
