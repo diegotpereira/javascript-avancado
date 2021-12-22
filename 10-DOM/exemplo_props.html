@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-@before-enter=" "">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+
+<body>
+    <h1 id="title1">DOM JAVASCRIPT</h1>
+
+    <main class="cmain" id="idmain">
+        <h1>subtitulo</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima voluptatibus, quia blanditiis laborum, nobis inventore alias velit molestias facere aperiam voluptatem aspernatur saepe quaerat est iste illo id, ut modi.</p>
+    </main>
+
+    <form action="">
+        <input type="text" name="" id="txtNome" placeholder="nome"><br><br>
+        <input type="text" name="" id="txtEmail" placeholder="email" maxlength="10" class="input input.email"><br><br>
+
+        <input type="checkbox" name="" id="contrato">
+        <label for="contrato">Li e aceito o contrato</label>
+        <textarea name="" id="" cols="30" rows="10" readonly>
+            Este contrato...
+        </textarea>
+    </form>
+
+    <script>
+        const txtNome = document.querySelector('#txtNome')
+        const txtEmail = document.querySelector('#txtEmail')
+        const labelContrato = document.querySelector("label[for='contrato']")
+
+        txtNome.value = 'João'
+        txtNome.disabled = true
+
+        console.log(txtNome.value);
+        console.log(labelContrato.htmlFor);
+        console.log(txtEmail.maxLength);
+        console.log(txtEmail.className);
+
+        txtEmail.readOnly = true
+    </script>
+</body>
+
+</html>

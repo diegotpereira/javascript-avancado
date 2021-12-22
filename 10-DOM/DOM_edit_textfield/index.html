@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- estilização -->
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body>
+    <div id="principal">
+        <header class="hero">
+            <div class="hero-content">
+                <h1>Curso Javascript Completo</h1>
+            </div>
+        </header>
+
+        <main>
+            <section class="content-section">
+                <div id="newsletterForm">
+                    <label for="txtEmail">Email:</label>
+                    <input type="email" onblur="disableEmail()" id="txtEmail" autocomplete="off" disabled value="teste@teste.com">
+                    <button id="btn" onclick="editarEmail()">editar</button>
+                </div>
+            </section>
+        </main>
+        <footer class=" rodape">
+            <p>Copyright &copy; 2021</p>
+        </footer>
+    </div>
+
+    <!-- scripts -->
+    <script src="js/app.js"></script>
+</body>
+
+</html>
