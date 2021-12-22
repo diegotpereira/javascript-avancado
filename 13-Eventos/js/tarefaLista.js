@@ -29,24 +29,24 @@
             ]
     }
 
-    function definirNovaDados() {
+    function definirNovosDados() {
         localStorage.setItem('tarefas', JSON.stringify(arrTarefas))
     }
 
-    definirNovaDados()
+    definirNovosDados()
 
     function gerarLiTarefa(obj) {
         const li = document.createElement('li')
         const p = document.createElement('p')
         const verificarBotao = document.createElement("button")
-            // const editarBotao = document.createElement("i")
-            // const deletarBotao = document.createElement("i")
+        const editarBotao = document.createElement("i")
+        const deletarBotao = document.createElement("i")
 
         li.className = 'tarefa-item'
 
         verificarBotao.className = 'button-check'
         verificarBotao.innerHTML = `
-            <i class="fas fa-check ${obj.completado ? "" : "displayNone"}" data-action="verificarBotao"></i>`
+            <i class="fas fa-check ${obj.completada ? "" : "displayNone"}" data-action="verificarBotao"></i>`
         verificarBotao.setAttribute('data-action', 'verificarBotao')
 
         li.appendChild(verificarBotao)
@@ -54,6 +54,30 @@
         p.className = 'tarefa-nome'
         p.textContent = obj.nome
         li.appendChild(p)
+
+        // Botão de Edição
+        editarBotao.className = 'fas fa-edit'
+        editarBotao.setAttribute('data-action', 'editarBotao')
+        li.appendChild(editarBotao)
+
+        const containerEditar = document.createElement('div')
+        containerEditar.className = 'editarContainer'
+
+        const entradaEditar = document.createElement('input')
+        entradaEditar.setAttribute('type', 'text')
+        entradaEditar.className = 'editarEntrada'
+        entradaEditar.value = obj.nome
+
+        containerEditar.appendChild(entradaEditar)
+
+        const containerEditarBtn = document.createElement('button')
+        containerEditarBtn.classList = 'editarBotao'
+        containerEditarBtn.textContent = 'Editar'
+        containerEditarBtn.setAttribute('data-action', 'containerEditarBtn')
+        containerEditar.appendChild(containerEditarBtn)
+
+        li.appendChild(containerEditar)
+
 
         return li
     }
@@ -65,7 +89,19 @@
         })
     }
 
+    function addTarefa(tarefa) {
+        arrTarefas.push({
+            nome: tarefa,
+            criadaEm: Date.now(),
+            completada: false
+        })
+
+        definirNovosDados()
+    }
+
     function clicouUI(e) {
+        const acaoDados = e.target.getAttribute('data-action')
+        if (!acaoDados) return
         let atualLi = e.target
 
         while (atualLi.nodeName !== 'LI') {
@@ -73,7 +109,39 @@
         }
 
         const atualLiIndex = [...lis].indexOf(atualLi)
+
+        const acoes = {
+            editarBotao: function() {
+                const editarContainer = atualLi.querySelector('.editarContainer');
+
+                [...ul.querySelectorAll('.editarContainer')].forEach(container => {
+                    container.removeAttribute('style')
+                })
+
+                editarContainer.style.display = 'flex'
+            },
+            containerEditarBtn: function() {
+                const valor = atualLi.querySelector('.editarEntrada').value
+                arrTarefas[atualLiIndex].nome = valor
+                renderizarTarefa()
+                definirNovosDados()
+            }
+        }
+
+        if (acoes[acaoDados]) {
+            acoes[acaoDados]()
+        }
     }
+
+    tarefaAddForm.addEventListener('submit', function(e) {
+        e.preventDefault()
+
+        addTarefa(itemInput.value)
+        renderizarTarefa()
+
+        itemInput.value = ''
+        itemInput.focus()
+    })
 
     ul.addEventListener("click", clicouUI)
 
