@@ -20,7 +20,6 @@ export class AlunosService {
     atualizarLocalStorage() {
         const alunos = JSON.stringify(this.alunos)
         localStorage.setItem('alunos', alunos)
-        console.log(alunos);
     }
 
     atualizarAlunoNoLocalStorage() {
@@ -29,7 +28,7 @@ export class AlunosService {
         if (local) {
             
             const alunos = JSON.parse(local)
-            console.log(alunos);
+
             alunos.forEach(aluno => {
                 this.add(new AlunoModel(aluno))
             })
