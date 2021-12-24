@@ -1,4 +1,4 @@
-import { AlunoModel } from "../Modelos/Aluno.model";
+import { AlunoModel } from "../Modelos/AlunoModel.js";
 
 export class AlunosService {
     constructor() {
@@ -13,15 +13,26 @@ export class AlunosService {
         }
 
         this.alunos.push(aluno)
-        this.atualizarAlunoNoLocalStorage()
+        console.log(aluno);
+        this.atualizarLocalStorage()
     }
 
-    atualizarAlunoNoLocalStorage() {
+    atualizarLocalStorage() {
         const alunos = JSON.stringify(this.alunos)
         localStorage.setItem('alunos', alunos)
+        console.log(alunos);
     }
 
     atualizarAlunoNoLocalStorage() {
+        const local = localStorage.getItem('alunos')
 
+        if (local) {
+            
+            const alunos = JSON.parse(local)
+            console.log(alunos);
+            alunos.forEach(aluno => {
+                this.add(new AlunoModel(aluno))
+            })
+        }
     }
 }
