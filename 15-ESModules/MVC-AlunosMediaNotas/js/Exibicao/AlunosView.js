@@ -23,7 +23,35 @@ export class AlunosView {
     }
 
     render(alunos) {
+        this.tableBody.innerHTML = ''
+        alunos.forEach(aluno => {
+            const htmlBody = document.createElement('tr')
+            let htmlMedias = `<td><a href="editar.html?id=${aluno.id}">${aluno.nome}</a></td>`
+            let encontrado = true 
 
+            this.materias.forEach(materia => {
+                if (materia in aluno.notas) {
+                    encontrado = true
+                }
+            })
+
+            if (encontrado) {
+                this.materias.forEach(materia => {
+                    htmlMedias += `<td>
+                        ${aluno.media[materia] !== undefined ?
+                           aluno.media[materia] : 
+                            `<a href="editar.html?id=${aluno._id}"> Incluir nota</a>`
+                        }
+                    </td>`
+                })
+            } else {
+                htmlMedias += `<td colspan="${this.materias.length}">
+                    <a hre="editar.html?id=${aluno._id}"> Incluir notas</a>
+                </td>`
+            }
+            htmlBody.innerHTML = htmlMedias
+            this.tableBody.appendChild(htmlBody)
+        })
     }
 }
 
