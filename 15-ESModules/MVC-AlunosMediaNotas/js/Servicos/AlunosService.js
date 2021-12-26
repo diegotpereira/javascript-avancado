@@ -17,6 +17,11 @@ export class AlunosService {
         this.atualizarLocalStorage()
     }
 
+    buscarPorId(id) {
+
+        return this.alunos.find(aluno => aluno._id === id)
+    }
+
     atualizarLocalStorage() {
         const alunos = JSON.stringify(this.alunos)
         localStorage.setItem('alunos', alunos)

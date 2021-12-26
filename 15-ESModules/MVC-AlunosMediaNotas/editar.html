@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Documento</title>
+
+    <!-- estilização -->
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+
+    <link rel="stylesheet" href="css/editar.css">
+</head>
+<body>
+    <div class="container">
+      <div
+        class="hero center card-panel materialize-red darken-4 white-text z-depth-3">
+      
+        <h1 class="materialize-red-text text-lighten-3">
+          Curso Javascript Completo
+        </h1>
+      </div>
+      
+      <h2 class="materialize-red-text text-lighten-2 underlined main-title">
+        Detalhe do Aluno
+      </h2>
+
+      <form class="form-add" data-editar-aluno-form>
+        <div class="row">
+          
+          <div class="input-field col s12">
+            <input
+              placeholder="Digite o nome do aluno"
+              id="primeiro_nome"
+              type="text"
+              class="validate"
+            />
+            <label for="primeiro_nome" class="active">Nome do Aluno</label>
+          </div>
+          <div class="input-field col s12">
+              <p>Notas por matéria</p>
+          </div>
+        </div>
+
+        <div data-editar-notas>
+          
+        </div> <!-- / data-edit-notas -->
+
+        <div class="row">
+          <div class="input-field col s12">
+            <a class="btn" href="index.html">Cancelar</a>
+            <button class="btn" type="submit" name="action">
+              Salvar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- scripts -->
+    <script type="module" src="js/editar.js"></script>
+</body>
+</html>
