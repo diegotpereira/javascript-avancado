@@ -17,9 +17,17 @@ export class AlunosService {
         this.atualizarLocalStorage()
     }
 
+    editar(aluno) {
+        aluno.gerarMedia()
+        this.atualizarLocalStorage()
+    }
     buscarPorId(id) {
 
         return this.alunos.find(aluno => aluno._id === id)
+    }
+
+    buscar(nome) {
+        return this.alunos.filter(aluno => aluno.nome.indexOf(nome) >= 0)
     }
 
     atualizarLocalStorage() {

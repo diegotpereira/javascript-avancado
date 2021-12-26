@@ -13,7 +13,7 @@ export class EditarAlunoController {
         const materiasRow = Array.from(this.view.container.querySelectorAll("[data-materia]"))
         console.log(materiasRow);
 
-        materiasRow.forEach(noew => {
+        materiasRow.forEach(row => {
             const notasRow = Array.from(row.querySelectorAll('[data-trimestre'))
             console.log(notasRow);
             notas[row.getAttribute('data-materia')] =  notasRow.map(nota => parseFloat(nota.value) || 0)

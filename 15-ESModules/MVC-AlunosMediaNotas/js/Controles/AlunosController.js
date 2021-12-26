@@ -13,4 +13,9 @@ export class AlunosController {
         this.view.render(this.service.alunos)
         console.log(this.service.alunos);
     }
+
+    buscar(nome) {
+        const dado = this.service.buscar(nome)
+        this.view.render(dado)
+    }
 }
