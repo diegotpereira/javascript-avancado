@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVC Alunos Media Notas</title>
+
+    <!-- estilização -->
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="hero center card-panel materialize-red darken-4 white-text z-depth-3">
+            <h1 class="materialize-red-text text-lighten-3">
+                Curso Javascript Completo
+            </h1>
+        </div>
+        <h2 class="materialize-red-text text-lighten-2 underlined main-title">
+            Dados de Alunos
+        </h2>
+        <form class="form-add">
+            <div class="row">
+                <div class="input-field col s8">
+                    <input placeholder="Digite o nome do aluno" id="first_name" type="text" class="validate" />
+                    <label for="first_name" class="active">Adicionar Aluno</label>
+                </div>
+                <div class="input-field col s4">
+                    <button class="btn-floating" type="submit" name="action">
+                <i class="material-icons">adicionar</i>
+              </button>
+                </div>
+            </div>
+        </form>
+        <div class="form-search">
+            <div class="row">
+                <div class="input-field col s8">
+                    <input placeholder="Digite o nome do aluno" id="search_name" type="text" class="validate" />
+                    <label for="search_name" class="active">Buscar Aluno</label>
+                </div>
+                <div class="input-field col s4">
+                </div>
+            </div>
+        </div>
+        <table data-table-alunos>
+            <thead>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
